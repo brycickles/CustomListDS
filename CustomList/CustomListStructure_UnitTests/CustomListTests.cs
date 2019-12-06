@@ -107,6 +107,22 @@ namespace CustomListStructure_UnitTests
             Assert.AreEqual(expected, actual);
         }
         [TestMethod]
+        public void remove_IndexesRetainOrderAfterRemovalFirstPosition()
+        {
+            //arrange
+            CustomList<int> list = new CustomList<int>();
+            list.Add(1);
+            list.Add(2);
+            list.Add(3);
+            list.Add(4);
+            int expected = 2;
+            //act
+            list.Remove(1);
+            int actual = list[0];
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+        [TestMethod]
         public void remove_IndexesRetainOrderAfterRemovalSecondPosition()
         {
             //arrange
@@ -123,40 +139,7 @@ namespace CustomListStructure_UnitTests
             Assert.AreEqual(expected, actual);
         }
         //By validating the first and second element retain position I am more thoroughly
-        //validating order is correct in array size
-        [TestMethod]
-        public void remove_IndexesRetainOrderAfterRemovalFirstPosition()
-        {
-            //arrange
-            CustomList<int> list = new CustomList<int>();
-            list.Add(1);
-            list.Add(2);
-            list.Add(3);
-            list.Add(4);
-            int expected = 2;
-            //act
-            list.Remove(1);
-            int actual = list[0];
-            //Assert
-            Assert.AreEqual(expected, actual);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public void remove_CannotRemoveIfArrayIsBlank()
-        {
-            //if list size is zero, throw exception in method
-            //exception ex 
-            //ex.message = ""
-            //throw new Exception();
-            //Arrange
-            CustomList<int> list = new CustomList<int>();
-
-            //Act
-            list.Remove(1);
-
-            
-        }
+        //validating order is correct in array size        
         [TestMethod]
         public void remove_LastItemIsItemREmovedFromArray()
         {
@@ -176,17 +159,21 @@ namespace CustomListStructure_UnitTests
 
         //removing if item is not present 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void remove_ItemRemovedIsNotPresentInArray()
         {
             //Arrange
             CustomList<int> list = new CustomList<int>();
+            int expected = 7;
 
             //Act
             list.Add(11);
             list.Add(12);
             list.Add(7);
             list.Remove(5);
+            int actual = list[2];
+
+            //Assert
+            Assert.AreEqual(expected, actual);
 
         }
         //second test - prove that when something removed from list isnt present, count doesnt decrement

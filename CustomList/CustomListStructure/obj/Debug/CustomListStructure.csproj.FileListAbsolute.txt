@@ -1,6 +1,5 @@
 C:\Users\bryce\Desktop\CSharp\CustomDataStructure\CustomList\CustomListStructure\bin\Debug\CustomListStructure.exe.config
 C:\Users\bryce\Desktop\CSharp\CustomDataStructure\CustomList\CustomListStructure\bin\Debug\CustomListStructure.exe
 C:\Users\bryce\Desktop\CSharp\CustomDataStructure\CustomList\CustomListStructure\bin\Debug\CustomListStructure.pdb
-C:\Users\bryce\Desktop\CSharp\CustomDataStructure\CustomList\CustomListStructure\obj\Debug\CustomListStructure.csprojAssemblyReference.cache
 C:\Users\bryce\Desktop\CSharp\CustomDataStructure\CustomList\CustomListStructure\obj\Debug\CustomListStructure.exe
 C:\Users\bryce\Desktop\CSharp\CustomDataStructure\CustomList\CustomListStructure\obj\Debug\CustomListStructure.pdb

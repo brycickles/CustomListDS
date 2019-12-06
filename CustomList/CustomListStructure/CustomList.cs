@@ -108,7 +108,41 @@ namespace CustomListStructure
             }   
         }        
 
+        public void Remove(T value)
+        {
+            if (count == 0)
+            {
+                //do nothing 
+            } 
+            else
+            {
+                //declare new aray
+                T[] temp = new T[capacity];
+                int j = 0;
+                //iterate through array and add to temp array if value at index i does not match value to be removed
+                for (int i = 0; i < count; j++)
+                {            
+                    if(arr[j].Equals(value))
+                    {
+                        lastItemRemoved = value; //set property value of lastItemRemoved
+                        count--; //decrement count of array 
+                    }
+                    else
+                    {
+                        temp[i] = arr[j];
+                        i++;
+                    }
+                    
+                }
+                ////now temp array is assigned all values except removed value. Reassign to array 
+                for(int a = 0; a < count; a++)
+                {
+                   arr[a] = temp[a];
+                }
 
+                
+            }
+        }
 
 
 
