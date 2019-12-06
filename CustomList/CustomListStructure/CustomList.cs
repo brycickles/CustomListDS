@@ -10,6 +10,7 @@ namespace CustomListStructure
     {
         private int count;
         private int capacity;
+        private T lastItemRemoved;
         private T[] arr;
         
         public int Count
@@ -26,6 +27,14 @@ namespace CustomListStructure
                 return capacity;
             }
         }
+        public T LastItemRemoved 
+        {
+            get
+            {
+                return lastItemRemoved;
+            }
+        }
+
         public T this[int index]  //indexer
         {
             get
@@ -96,10 +105,22 @@ namespace CustomListStructure
                 //store value in index of count 
                 arr[count] = value; 
                 count++;
-            }
-            
-           
-        }
-        
+            }   
+        }        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }

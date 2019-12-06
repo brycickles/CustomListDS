@@ -7,6 +7,7 @@ namespace CustomListStructure_UnitTests
     [TestClass]
     public class CustomListTests
     {
+        #region AddMethod TestMethods
         [TestMethod]
         public void addValue_array_CountReflectsTrueSize()
         {
@@ -14,7 +15,7 @@ namespace CustomListStructure_UnitTests
             CustomList<int> testList1 = new CustomList<int>();
             int value1 = 5;
             int actual;
-            int expected = 1;
+            int expected = 1; //expected size of list after addition
 
             //Act
             testList1.Add(value1);
@@ -84,8 +85,129 @@ namespace CustomListStructure_UnitTests
             // act
             testList[-2] = outOfRange;
         }
+        #endregion
 
+        #region RemoveMethod TestMethods
+        [TestMethod]
+        public void remove_sizeReflectsCorrectlyAfterRemove()
+        {
+            //arrange
+            CustomList<int> list = new CustomList<int>();
+            int val = 1;
+            list.Add(0);
+            list.Add(val);
+            list.Add(2);
+            list.Add(3);
+            int expected = 3;
 
+            //act
+            list.Remove(val);
+            int actual = list.Count;
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+        [TestMethod]
+        public void remove_IndexesRetainOrderAfterRemovalSecondPosition()
+        {
+            //arrange
+            CustomList<int> list = new CustomList<int>();
+            list.Add(1);
+            list.Add(2);
+            list.Add(3);
+            list.Add(4);
+            int expected = 2;
+            //act
+            list.Remove(4);
+            int actual = list[1];
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+        //By validating the first and second element retain position I am more thoroughly
+        //validating order is correct in array size
+        [TestMethod]
+        public void remove_IndexesRetainOrderAfterRemovalFirstPosition()
+        {
+            //arrange
+            CustomList<int> list = new CustomList<int>();
+            list.Add(1);
+            list.Add(2);
+            list.Add(3);
+            list.Add(4);
+            int expected = 2;
+            //act
+            list.Remove(1);
+            int actual = list[0];
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void remove_CannotRemoveIfArrayIsBlank()
+        {
+            //if list size is zero, throw exception in method
+            //exception ex 
+            //ex.message = ""
+            //throw new Exception();
+            //Arrange
+            CustomList<int> list = new CustomList<int>();
+
+            //Act
+            list.Remove(1);
+
+            
+        }
+        [TestMethod]
+        public void remove_LastItemIsItemREmovedFromArray()
+        {
+            //Arrange
+            CustomList<int> list = new CustomList<int>();
+            int expected = 5;
+
+            //Act
+            list.Add(5);
+            list.Add(3);
+            list.Remove(5);
+            int actual = list.LastItemRemoved;
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+        //removing if item is not present 
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void remove_ItemRemovedIsNotPresentInArray()
+        {
+            //Arrange
+            CustomList<int> list = new CustomList<int>();
+
+            //Act
+            list.Add(11);
+            list.Add(12);
+            list.Add(7);
+            list.Remove(5);
+
+        }
+        //second test - prove that when something removed from list isnt present, count doesnt decrement
+
+        [TestMethod]
+        public void remove_CountStaysSameIfNothingRemoved()
+        {
+            //Arrange
+            CustomList<int> list = new CustomList<int>();
+            int expected = 2;
+
+            //Act
+            list.Add(10);
+            list.Add(5);
+            list.Remove(7);
+            int actual = list.Count;
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+        #endregion
     }
 
 
