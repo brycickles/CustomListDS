@@ -195,6 +195,111 @@ namespace CustomListStructure_UnitTests
             Assert.AreEqual(expected, actual);
         }
         #endregion
+
+        #region ToStringMethod TestMethods
+        [TestMethod]
+        public void ToString_ArrayActuallyReturned()
+        {
+            //Arrange
+            CustomList<int> list = new CustomList<int>();
+            string expected = "4, 8";
+            list.Add(4);
+            list.Add(8);
+
+            //Act
+            string actual = list.ToString();
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+        [TestMethod]
+        public void ToString_ElementPrintedMatchesElementInArray()
+        {
+            //Arrange
+            CustomList<int> list = new CustomList<int>();
+            list.Add(2);
+            list.Add(4);
+            list.Add(8);
+            list.Add(8);
+            list.Add(8);
+            string expected = "2, 4, 8, 8, 8";
+
+            //Act - note: have fun overriding this twice to be able to ToString a single variable
+            string actual = list.ToString();
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+        [TestMethod]
+        public void ToString_EmptyArrayReturnsEmptyString()
+        {
+            //Arrange
+            CustomList<int> list = new CustomList<int>();
+            string expected = "";
+            //Act
+            string actual = list.ToString();
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+        #endregion
+
+        #region OverloadPlus TestMethods
+        [TestMethod]
+        public void OverloadPlus_CheckIfCorrectConcatenation()
+        {
+            //Arrange
+            CustomList<int> list = new CustomList<int>();
+            CustomList<int> listTwo = new CustomList<int>();
+            CustomList<int> list3 = new CustomList<int>();
+            string expected = "1, 2";
+
+            //Act
+            list.Add(1);
+            listTwo.Add(2);
+            list3 = (list + listTwo);
+            string actual = list3.ToString();
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void OverloadPlus_CheckCorrectOutputIfOneListIsBlank()
+        {
+            //Arrange
+            CustomList<int> lA = new CustomList<int>();
+            CustomList<int> lB = new CustomList<int>();
+            CustomList<int> lC = new CustomList<int>();
+            lA.Add(1);
+            lA.Add(2);
+            lA.Add(3);
+            string expected = "1, 2, 3";
+
+            //Act
+            lC = lA + lB;
+            string actual = lC.ToString();
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void OverloadPlus_CheckCorrectOutputIfBothListsAreBlank()
+        {
+            //Arrange
+            CustomList<int> lA = new CustomList<int>();
+            CustomList<int> lB = new CustomList<int>();
+            CustomList<int> lC = new CustomList<int>();
+            string expected = "";
+
+            //Act
+            lC = lA + lB;
+            string actual = lC.ToString();
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+        #endregion
     }
 
 

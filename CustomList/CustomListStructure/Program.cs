@@ -55,6 +55,39 @@ namespace CustomListStructure
             }
             Console.ReadLine();
             Console.Clear();
+
+            //Console.WriteLine("String representation of array:"); 
+            //string arrString = l1.ToString();
+
+            //Console.WriteLine(arrString);
+            //Console.ReadLine();
+
+
+            Console.WriteLine("Adding Two lists.");
+
+            CustomList<int> lA = new CustomList<int>();
+            lA.Add(1);
+            lA.Add(2);
+            lA.Add(3);
+
+            CustomList<int> lB = new CustomList<int>();
+            lB.Add(3);
+            lB.Add(4);
+            lB.Add(5);
+
+            CustomList<int> lC = new CustomList<int>();
+
+            lC = lA + lB;
+
+            string listAoutput = lA.ToString();
+            string listBOutput = lB.ToString();
+            Console.WriteLine("List A contains: {0}", listAoutput);
+            Console.WriteLine("List B contains: {0}", listBOutput);
+
+            string lCoutput = lC.ToString();
+            Console.WriteLine("List A + List B = {0}", lCoutput);
+            Console.ReadLine();
+
         }
 
     }

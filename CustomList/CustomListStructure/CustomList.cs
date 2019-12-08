@@ -11,7 +11,10 @@ namespace CustomListStructure
         private int count;
         private int capacity;
         private T lastItemRemoved;
+        private T lastElementPrinted;
         private T[] arr;
+        StringBuilder sb = new StringBuilder("this is a stringbuilder");
+        
         
         public int Count
         {
@@ -32,6 +35,13 @@ namespace CustomListStructure
             get
             {
                 return lastItemRemoved;
+            }
+        }
+        public T LastElementPrinted
+        {
+            get 
+            {
+                return lastElementPrinted;
             }
         }
 
@@ -134,18 +144,66 @@ namespace CustomListStructure
                     }
                     
                 }
+
+                //these two below lines handle resizing the array to exactly the value it needs to be 
+                capacity = count; 
+                arr = new T[capacity];
+
                 ////now temp array is assigned all values except removed value. Reassign to array 
                 for(int a = 0; a < count; a++)
                 {
+                   
                    arr[a] = temp[a];
                 }
-
-                
             }
         }
 
+        public override string ToString()
+        {
+            StringBuilder arrString = new StringBuilder();
+            for (int i = 0; i < count; i++)
+            {
+                if(i == count -1) //if its the last element in the array 
+                {
+                    arrString.Append(arr[i]);
+                }
+                else
+                {
+                    arrString.Append(arr[i] + ", ");
+                }
+            }
+            return arrString.ToString(); 
+        }
+
+        public static CustomList<T> operator +(CustomList<T> listA, CustomList<T> listB)
+        {
+            CustomList<T> listC = new CustomList<T>();
+
+            //combine both lists into one
+            //Add all of first list into new list 
+            for(int i = 0; i < listA.Count; i++)
+            {
+                listC.Add(listA[i]);
+            }
+
+            //add second to array 
+            for (int i = 0; i < listB.Count; i++)
+            {
+                listC.Add(listB[i]);
+            }         
+            return listC;
+        }
+
+        public static CustomList<T> operator -(CustomList<T> listA, CustomList<T> listB)
+        {
+            CustomList<T> listC = new CustomList<T>();
+
+            //iterate through list a, store in temporary list 
 
 
+
+            return listC;
+        }
 
 
 
