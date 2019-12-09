@@ -3,25 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections;
 
 namespace CustomListStructure
 {
-    public class CustomList<T>
+    public class CustomList<T> : IEnumerable
     {
+        #region Private Variables and Public Properties
+        //private variables
         private int count;
         private int capacity;
         private T lastItemRemoved;
         private T lastElementPrinted;
-        private T[] arr;
+        private T[] arr;        
         
-        
+        //properties
         public int Count
         {
             get
             {
                 return count;
             }
-        }//count property 
+        }
         public int Capacity
         {
             get
@@ -43,8 +46,11 @@ namespace CustomListStructure
                 return lastElementPrinted;
             }
         }
+        #endregion
 
-        public T this[int index]  //indexer
+        #region Indexer and Numerator
+        //indexer
+        public T this[int index]  
         {
             get
             {
@@ -75,12 +81,25 @@ namespace CustomListStructure
             }
         }
 
+        //Numerator
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+        return arr.GetEnumerator();
+
+        }
+        #endregion
+
+        #region  Constructor
         public CustomList()
         {
             count = 0;
             capacity = 4;
             arr = new T[capacity];
         }
+        #endregion
+
+        #region Overloads/Overrides/Methods
+        //Methods
         public void Add(T value)
         { 
             if(count != capacity) //if we have space left in the array 
@@ -116,7 +135,6 @@ namespace CustomListStructure
                 count++;
             }   
         }        
-
         public void Remove(T value)
         {
             if (count == 0)
@@ -125,7 +143,6 @@ namespace CustomListStructure
             } 
             else
             {
-                //declare new aray
                 T[] temp = new T[capacity];
                 int j = 0;
                 //iterate through array and add to temp array if value at index i does not match value to be removed
@@ -150,13 +167,70 @@ namespace CustomListStructure
 
                 ////now temp array is assigned all values except removed value. Reassign to array 
                 for(int a = 0; a < count; a++)
-                {
-                   
+                {                  
                    arr[a] = temp[a];
                 }
             }
         }
+        public void RemoveAt(T value)
+        {
+            if (count == 0)
+            {
+                //do nothing 
+            }
+            else
+            {                
+                bool hasBeenRemovedAlready = false;
+                T[] temp = new T[capacity];
+                int j = 0;
+                //iterate through array and add to temp array if value at index i does not match value to be removed
+                for (int i = 0; i < count;)
+                {
+                    if(i == count -1) //if i is last element in array
+                    {
+                        break;
+                    }
+                    else if (arr[i].Equals(value))
+                    {
+                        if (hasBeenRemovedAlready == true)
+                        {
+                            temp[i] = arr[j];
+                            i++;
+                            j++;
+                        }
+                        if (hasBeenRemovedAlready == false)
+                        {
+                            lastItemRemoved = value; //set property value of lastItemRemoved 
+                            hasBeenRemovedAlready = true;
+                            temp[i] = arr[j + 1];                            
+                            j++;
+                        }                        
+                    }
+                    else
+                    {                        
+                        temp[i] = arr[j];
+                        i++;
+                        j++;
+                    }
 
+                }
+
+                if (hasBeenRemovedAlready == true)
+                {
+                    count--;
+                }
+                //these two below lines handle resizing the array to exactly the value it needs to be 
+                capacity = count;
+                arr = new T[capacity];
+
+                ////now temp array is assigned all values except removed value. Reassign to array 
+                for (int a = 0; a < count; a++)
+                {
+
+                    arr[a] = temp[a];
+                }
+            }
+        }
         public override string ToString()
         {
             StringBuilder arrString = new StringBuilder();
@@ -173,7 +247,47 @@ namespace CustomListStructure
             }
             return arrString.ToString(); 
         }
+        public string Zipper(CustomList<int> first, CustomList<int> second)
+        {
+            CustomList<int> result = new CustomList<int>();
+            for (int a = 0; a < first.Count; a++)
+            {
+                result.Add(first[a]);
+            }
+            for (int b = 0; b < first.Count; b++)
+            {
+                result.Add(second[b]);
+            }
+            //create a alist of size necessary to store both lists worth of numbers into. This will be rewritten anyway. 
 
+            int firstIndex = 0, secondIndex = 0, resultIndex = 0;
+
+            while (firstIndex < first.Count && secondIndex < second.Count) //keeps each limited to actual size of each list
+            {
+                if (first[firstIndex] < second[secondIndex])
+                {
+                    result[resultIndex++] = first[firstIndex++];
+                }
+                else
+                {
+                    result[resultIndex++] = second[secondIndex++];
+                }
+            }
+
+            if (firstIndex < first.Count)
+            {
+                for (int a = firstIndex; a < first.Count; a++)
+                    result[resultIndex] = first[a];
+            }
+
+            if (secondIndex < second.Count)
+            {
+                for (int a = secondIndex; a < second.Count; a++)
+                    result[resultIndex++] = second[a];
+            }
+
+            return result.ToString();
+        }
         public static CustomList<T> operator +(CustomList<T> listA, CustomList<T> listB)
         {
             CustomList<T> listC = new CustomList<T>();
@@ -192,7 +306,6 @@ namespace CustomListStructure
             }         
             return listC;
         }
-
         public static CustomList<T> operator -(CustomList<T> listA, CustomList<T> listB)
         {
             CustomList<T> newList = new CustomList<T>();
@@ -234,15 +347,6 @@ namespace CustomListStructure
 
             return newList;
         }
-
-
-
-
-
-
-
-
-
-
+        #endregion
     }
 }

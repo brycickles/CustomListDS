@@ -64,7 +64,6 @@ namespace CustomListStructure_UnitTests
         }
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        //test to see if a string is added instead of an integer 
         public void add_array_largerSizeThrownException()
         {
             //arrange
@@ -137,9 +136,7 @@ namespace CustomListStructure_UnitTests
             int actual = list[1];
             //Assert
             Assert.AreEqual(expected, actual);
-        }
-        //By validating the first and second element retain position I am more thoroughly
-        //validating order is correct in array size        
+        }      
         [TestMethod]
         public void remove_LastItemIsItemREmovedFromArray()
         {
@@ -156,8 +153,6 @@ namespace CustomListStructure_UnitTests
             //Assert
             Assert.AreEqual(expected, actual);
         }
-
-        //removing if item is not present 
         [TestMethod]
         public void remove_ItemRemovedIsNotPresentInArray()
         {
@@ -176,8 +171,6 @@ namespace CustomListStructure_UnitTests
             Assert.AreEqual(expected, actual);
 
         }
-        //second test - prove that when something removed from list isnt present, count doesnt decrement
-
         [TestMethod]
         public void remove_CountStaysSameIfNothingRemoved()
         {
@@ -261,7 +254,6 @@ namespace CustomListStructure_UnitTests
             //Assert
             Assert.AreEqual(expected, actual);
         }
-
         [TestMethod]
         public void OverloadPlus_CheckCorrectOutputIfOneListIsBlank()
         {
@@ -281,7 +273,6 @@ namespace CustomListStructure_UnitTests
             //Assert
             Assert.AreEqual(expected, actual);
         }
-
         [TestMethod]
         public void OverloadPlus_CheckCorrectOutputIfBothListsAreBlank()
         {
@@ -298,11 +289,9 @@ namespace CustomListStructure_UnitTests
             //Assert
             Assert.AreEqual(expected, actual);
         }
-
         #endregion
 
         #region OverloadMinus TestMethods
-
         [TestMethod]
         public void OverloadMinus_CheckIfCorrectConcatenation()
         {
@@ -325,7 +314,6 @@ namespace CustomListStructure_UnitTests
             //Assert
             Assert.AreEqual(expected, actual);
         }
-
         [TestMethod]
         public void OverloadMinus_CheckIfLeftLeftBlank()
         {
@@ -346,7 +334,6 @@ namespace CustomListStructure_UnitTests
             //Assert
             Assert.AreEqual(expected, actual);
         }
-
         [TestMethod]
         public void OverloadMinus_CheckIfRightLeftBlank()
         {
@@ -367,8 +354,77 @@ namespace CustomListStructure_UnitTests
             //Assert
             Assert.AreEqual(expected, actual);
         }
+        [TestMethod]
+        public void OverLoadMinus_CheckIfBOTHListsAreBlank()
+        {
+            //Arrange 
+            CustomList<int> list1 = new CustomList<int>();
+            CustomList<int> list2 = new CustomList<int>();
+            CustomList<int> list3 = new CustomList<int>();
+            string expected = "";
+
+
+            //Act 
+            list3 = list1 - list2;
+            string actual = list3.ToString();
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+        #endregion
+
+        #region Zipper TestMethods
+        [TestMethod]
+        public void Zipper_EnsureCorrectOutputWithTwoLists()
+        {
+            //Arrange
+            CustomList<int> l1 = new CustomList<int>() { 1, 3, 5 };
+            CustomList<int> l2 = new CustomList<int>() { 2, 4, 6 };
+            CustomList<int> l3 = new CustomList<int>();
+            string expected = "1, 2, 3, 4, 5, 6";
+
+            //Act
+            string actual = l3.Zipper(l1, l2);
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+        [TestMethod]
+        public void Zipper_EnsureCorrectOutputWithOneist()
+        {
+            //Arrange
+            CustomList<int> l1 = new CustomList<int>() { 1, 3, 5 };
+            CustomList<int> l2 = new CustomList<int>();
+            CustomList<int> l3 = new CustomList<int>();
+            string expected = "1, 3, 5";
+
+            //Act
+            string actual = l3.Zipper(l1, l2);
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+        [TestMethod]
+        public void Zipper_EnsureCorrectOutputWithBlankLists()
+        {
+            //Arrange
+            CustomList<int> l1 = new CustomList<int>();
+            CustomList<int> l2 = new CustomList<int>();
+            CustomList<int> l3 = new CustomList<int>();
+            string expected = "";
+
+            //Act
+            string actual = l3.Zipper(l1, l2);
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+        #endregion
+
+        #region RemoveAt TestMethods
 
         #endregion
+
     }
 
 

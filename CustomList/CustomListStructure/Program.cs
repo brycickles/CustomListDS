@@ -10,25 +10,9 @@ namespace CustomListStructure
     {
         static void Main(string[] args)
         {
-            CustomList<int> l1 = new CustomList<int>();
-
-            //Console.WriteLine("Testing addition function");
-            l1.Add(1);
-            l1.Add(2);
-            l1.Add(3);
-            l1.Add(4);
-            l1.Add(5);
-            l1.Add(6);
-            l1.Add(7);
-
-            //for (int i = 0; i < l1.Count; i++)
-            //{
-            //    Console.WriteLine(l1[i]);
-            //}
-            //Console.ReadLine();
-            //Console.Clear();
-
-
+            #region Test Removal Function
+            CustomList<int> l1 = new CustomList<int>() { 1, 2, 3, 3, 4, 5, 5, 6, 7 };
+            
             Console.WriteLine("Testing Removal Function");
             Console.WriteLine("Current Array Values:");
             for (int i = 0; i < l1.Count; i++)
@@ -36,17 +20,8 @@ namespace CustomListStructure
                 Console.WriteLine(l1[i]);
             }
 
-            Console.WriteLine("Removing 3 with Remove()");
+            Console.WriteLine("Removing all 3's with Remove()");
             l1.Remove(3);
-
-            Console.WriteLine("Displaying new List");
-            for (int i = 0; i < l1.Count; i++)
-            {
-                Console.WriteLine(l1[i]);
-            }
-
-            Console.WriteLine("Removing 7 with Remove()");
-            l1.Remove(7);
 
             Console.WriteLine("Displaying new List");
             for (int i = 0; i < l1.Count; i++)
@@ -56,25 +31,24 @@ namespace CustomListStructure
             Console.ReadLine();
             Console.Clear();
 
-            //Console.WriteLine("String representation of array:"); 
-            //string arrString = l1.ToString();
+            Console.WriteLine("Removing one 5 with RemoveAt()");
+            l1.RemoveAt(5);
 
-            //Console.WriteLine(arrString);
-            //Console.ReadLine();
+            Console.WriteLine("Displaying new List");
+            for (int i = 0; i < l1.Count; i++)
+            {
+                Console.WriteLine(l1[i]);
+            }
+            Console.ReadLine();
+            Console.Clear();
+            #endregion
 
 
+            #region Test ToString, +/- operators
             Console.WriteLine("Adding Two lists.");
 
-            CustomList<int> lA = new CustomList<int>();
-            lA.Add(1);
-            lA.Add(2);
-            lA.Add(3);
-
-            CustomList<int> lB = new CustomList<int>();
-            lB.Add(3);
-            lB.Add(4);
-            lB.Add(5);
-
+            CustomList<int> lA = new CustomList<int>() { 1, 2, 3 };
+            CustomList<int> lB = new CustomList<int>() { 3, 4, 5 };
             CustomList<int> lC = new CustomList<int>();
 
             lC = lA + lB;
@@ -89,18 +63,28 @@ namespace CustomListStructure
             Console.ReadLine();
 
 
-            CustomList<int> listA = new CustomList<int>();
-            CustomList<int> listB = new CustomList<int>();
-            listA.Add(1);
-            listA.Add(3);
-            listA.Add(5);
-            listB.Add(2);
-            listB.Add(1);
-            listB.Add(6);
+            CustomList<int> listA = new CustomList<int>() { 1, 3, 5 };
+            CustomList<int> listB = new CustomList<int>() { 2, 1, 6 };
             Console.WriteLine("List A: {0}\nList B: {1}", listA.ToString(), listB.ToString());
 
             lC = listA - listB;
+
             Console.WriteLine("List A - List B: \n{0}", lC.ToString());
+            Console.ReadLine();
+            Console.Clear();
+            #endregion
+
+            #region Test Zipper Function
+            listA = new CustomList<int>() { 1, 3, 7, 9, 11 };
+            listB = new CustomList<int>() { 0, 2, 4, 6, 14 };
+
+            Console.WriteLine("List A: {0}\nList B: {1}", listA.ToString(), listB.ToString());
+            lC = new CustomList<int>();
+            Console.WriteLine("Zipped!");
+            string lCZipped = lC.Zipper(listA, listB);
+            Console.WriteLine(lCZipped);
+            #endregion
+
             Console.ReadLine();
         }
 
