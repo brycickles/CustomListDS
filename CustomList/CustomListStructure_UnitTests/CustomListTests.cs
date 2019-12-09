@@ -292,28 +292,31 @@ namespace CustomListStructure_UnitTests
         #endregion
 
         #region OverloadMinus TestMethods
+
+
+
         [TestMethod]
         public void OverloadMinus_CheckIfCorrectConcatenation()
         {
             //Arrange 
-            CustomList<int> list1 = new CustomList<int>();
-            CustomList<int> list2 = new CustomList<int>();
+            CustomList<int> list1 = new CustomList<int>() {1, 3, 5};
+            CustomList<int> list2 = new CustomList<int>() {2, 1, 6 };
             CustomList<int> list3 = new CustomList<int>();
             string expected = "3, 5";
 
             //Act 
-            list1.Add(1);
-            list1.Add(3);
-            list1.Add(5);
-            list2.Add(2);
-            list2.Add(1);
-            list2.Add(6);
             list3 = list1 - list2;
             string actual = list3.ToString();
 
             //Assert
             Assert.AreEqual(expected, actual);
         }
+
+
+
+
+
+
         [TestMethod]
         public void OverloadMinus_CheckIfLeftLeftBlank()
         {
