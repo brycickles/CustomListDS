@@ -13,7 +13,6 @@ namespace CustomListStructure
         private T lastItemRemoved;
         private T lastElementPrinted;
         private T[] arr;
-        StringBuilder sb = new StringBuilder("this is a stringbuilder");
         
         
         public int Count
@@ -196,13 +195,44 @@ namespace CustomListStructure
 
         public static CustomList<T> operator -(CustomList<T> listA, CustomList<T> listB)
         {
-            CustomList<T> listC = new CustomList<T>();
-
+            CustomList<T> newList = new CustomList<T>();
+            bool doesMatch = false; 
             //iterate through list a, store in temporary list 
 
+            // (10 points): As a developer, I want to be able to overload the – operator, so that I can subtract one instance of a custom list class from another instance of a custom list class.
+            //-	List<int> one = new List<int>() { 1, 3, 5 }; and List<int> two = new List<int>() { 2, 1, 6 };
+            //-	List<int> result = one - two;
+            //-	result has 3,5
+            
+            //first, add the three from A to list C. This will always happen as we are subrtacting from A 
+            for( int i = 0; i < listA.Count; i++)
+            {
+                newList.Add(listA[i]);
+            }
+            
+            for(int j = 0; j < newList.Count; j++)
+            {
+                for(int k = 0; k < listB.Count; k++){
+
+                    if (newList[j].Equals(listB[k]))
+                    {
+                        doesMatch = true;
+
+                    }
+
+                }
+                if(doesMatch == true)
+                {
+                    newList.Remove(newList[j]);
+                    doesMatch = false; 
+                }
+                
+                //wheck though loop and set boolean condition = true 
+
+            }
 
 
-            return listC;
+            return newList;
         }
 
 

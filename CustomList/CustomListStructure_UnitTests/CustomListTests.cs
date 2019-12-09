@@ -303,6 +303,23 @@ namespace CustomListStructure_UnitTests
 
         #region OverloadMinus TestMethods
 
+        [TestMethod]
+        public void OverloadMinus_CheckIfCorrectConcatenation()
+        {
+
+        }
+
+        [TestMethod]
+        public void OverloadMinus_CheckIfCorrectConcatenation()
+        {
+
+        }
+
+        [TestMethod]
+        public void OverloadMinus_CheckIfCorrectConcatenation()
+        {
+
+        }
 
         #endregion
     }

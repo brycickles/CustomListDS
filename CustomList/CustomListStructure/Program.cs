@@ -88,6 +88,20 @@ namespace CustomListStructure
             Console.WriteLine("List A + List B = {0}", lCoutput);
             Console.ReadLine();
 
+
+            CustomList<int> listA = new CustomList<int>();
+            CustomList<int> listB = new CustomList<int>();
+            listA.Add(1);
+            listA.Add(3);
+            listA.Add(5);
+            listB.Add(2);
+            listB.Add(1);
+            listB.Add(6);
+            Console.WriteLine("List A: {0}\nList B: {1}", listA.ToString(), listB.ToString());
+
+            lC = listA - listB;
+            Console.WriteLine("List A - List B: \n{0}", lC.ToString());
+            Console.ReadLine();
         }
 
     }
