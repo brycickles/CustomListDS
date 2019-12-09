@@ -174,20 +174,42 @@ namespace CustomListStructure
         }
         public void RemoveAt(T value)
         {
-            if (count == 0)
+            bool actuallyPresent = false;
+            for (int i = 0; i < count; i++)
+            {
+                if (value.Equals(arr[i])) { 
+                    actuallyPresent = true;
+                }
+
+            }
+            
+            if (count == 0 && actuallyPresent == true)
             {
                 //do nothing 
             }
-            else
+            else if (actuallyPresent == true)
             {                
                 bool hasBeenRemovedAlready = false;
                 T[] temp = new T[capacity];
                 int j = 0;
                 //iterate through array and add to temp array if value at index i does not match value to be removed
                 for (int i = 0; i < count;)
-                {
-                    if(i == count -1) //if i is last element in array
+                {                   
+                    if (i == count - 1) //if i is last element in array, do the contents of the method but without incrementing
                     {
+                        if (arr[i].Equals(value))
+                        {
+                            if (hasBeenRemovedAlready == true)
+                            {
+                                temp[i] = arr[j];
+                            }
+                            if (hasBeenRemovedAlready == false)
+                            {
+                                lastItemRemoved = value; //set property value of lastItemRemoved 
+                                hasBeenRemovedAlready = true;
+                                temp[i] = arr[j];
+                            }
+                        }
                         break;
                     }
                     else if (arr[i].Equals(value))
@@ -202,7 +224,7 @@ namespace CustomListStructure
                         {
                             lastItemRemoved = value; //set property value of lastItemRemoved 
                             hasBeenRemovedAlready = true;
-                            temp[i] = arr[j + 1];                            
+                            temp[i] = arr[j + 1];
                             j++;
                         }                        
                     }
@@ -217,9 +239,10 @@ namespace CustomListStructure
 
                 if (hasBeenRemovedAlready == true)
                 {
-                    count--;
+                    count--;              
                 }
-                //these two below lines handle resizing the array to exactly the value it needs to be 
+               
+                //shrink array size to eliminate trailing zeros                
                 capacity = count;
                 arr = new T[capacity];
 
@@ -247,46 +270,63 @@ namespace CustomListStructure
             }
             return arrString.ToString(); 
         }
-        public string Zipper(CustomList<int> first, CustomList<int> second)
+        //public string Zipper(CustomList<int> first, CustomList<int> second)
+        //{
+        //    CustomList<int> result = new CustomList<int>();
+        //    for (int a = 0; a < first.Count; a++)
+        //    {
+        //        result.Add(first[a]);
+        //    }
+        //    for (int b = 0; b < first.Count; b++)
+        //    {
+        //        result.Add(second[b]);
+        //    }
+        //    //create a alist of size necessary to store both lists worth of numbers into. This will be rewritten anyway. 
+
+        //    int firstIndex = 0, secondIndex = 0, resultIndex = 0;
+
+        //    while (firstIndex < first.Count && secondIndex < second.Count) //keeps each limited to actual size of each list
+        //    {
+        //        if (first[firstIndex] < second[secondIndex])
+        //        {
+        //            result[resultIndex++] = first[firstIndex++];
+        //        }
+        //        else
+        //        {
+        //            result[resultIndex++] = second[secondIndex++];
+        //        }
+        //    }
+
+        //    if (firstIndex < first.Count)
+        //    {
+        //        for (int a = firstIndex; a < first.Count; a++)
+        //            result[resultIndex] = first[a];
+        //    }
+
+        //    if (secondIndex < second.Count)
+        //    {
+        //        for (int a = secondIndex; a < second.Count; a++)
+        //            result[resultIndex++] = second[a];
+        //    }
+
+        //    return result.ToString();
+        //}
+        public CustomList<T> ZipperMerge(CustomList<T> list1, CustomList<T> list2)
         {
-            CustomList<int> result = new CustomList<int>();
-            for (int a = 0; a < first.Count; a++)
+            int totalCount = list1.Count + list2.Count;
+            CustomList<T> zipperList = new CustomList<T>();
+            for (int i = 0; i < totalCount; i++)
             {
-                result.Add(first[a]);
-            }
-            for (int b = 0; b < first.Count; b++)
-            {
-                result.Add(second[b]);
-            }
-            //create a alist of size necessary to store both lists worth of numbers into. This will be rewritten anyway. 
-
-            int firstIndex = 0, secondIndex = 0, resultIndex = 0;
-
-            while (firstIndex < first.Count && secondIndex < second.Count) //keeps each limited to actual size of each list
-            {
-                if (first[firstIndex] < second[secondIndex])
+                if (i < list1.Count)
                 {
-                    result[resultIndex++] = first[firstIndex++];
+                    zipperList.Add(list1.arr[i]);
                 }
-                else
+                if (i < list2.Count)
                 {
-                    result[resultIndex++] = second[secondIndex++];
+                    zipperList.Add(list2.arr[i]);
                 }
             }
-
-            if (firstIndex < first.Count)
-            {
-                for (int a = firstIndex; a < first.Count; a++)
-                    result[resultIndex] = first[a];
-            }
-
-            if (secondIndex < second.Count)
-            {
-                for (int a = secondIndex; a < second.Count; a++)
-                    result[resultIndex++] = second[a];
-            }
-
-            return result.ToString();
+            return zipperList;
         }
         public static CustomList<T> operator +(CustomList<T> listA, CustomList<T> listB)
         {

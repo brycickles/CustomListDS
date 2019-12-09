@@ -10,20 +10,13 @@ namespace CustomListStructure
     {
         static void Main(string[] args)
         {
-            #region Test Removal Function
-            CustomList<int> l1 = new CustomList<int>() { 1, 2, 3, 3, 4, 5, 5, 6, 7 };
+            #region Test RemovalAt Function
+            CustomList<int> l1 = new CustomList<int>() { 1, 2, 3 };
             
-            Console.WriteLine("Testing Removal Function");
-            Console.WriteLine("Current Array Values:");
-            for (int i = 0; i < l1.Count; i++)
-            {
-                Console.WriteLine(l1[i]);
-            }
+            Console.WriteLine("Removing 9 (not present) with RemoveAt()");
+            l1.RemoveAt(9);
 
-            Console.WriteLine("Removing all 3's with Remove()");
-            l1.Remove(3);
-
-            Console.WriteLine("Displaying new List");
+            Console.WriteLine("Displaying List Without 9");
             for (int i = 0; i < l1.Count; i++)
             {
                 Console.WriteLine(l1[i]);
@@ -31,18 +24,8 @@ namespace CustomListStructure
             Console.ReadLine();
             Console.Clear();
 
-            Console.WriteLine("Removing one 5 with RemoveAt()");
-            l1.RemoveAt(5);
 
-            Console.WriteLine("Displaying new List");
-            for (int i = 0; i < l1.Count; i++)
-            {
-                Console.WriteLine(l1[i]);
-            }
-            Console.ReadLine();
-            Console.Clear();
             #endregion
-
 
             #region Test ToString, +/- operators
             Console.WriteLine("Adding Two lists.");
@@ -72,18 +55,33 @@ namespace CustomListStructure
             Console.WriteLine("List A - List B: \n{0}", lC.ToString());
             Console.ReadLine();
             Console.Clear();
+
+
             #endregion
 
             #region Test Zipper Function
             listA = new CustomList<int>() { 1, 3, 7, 9, 11 };
             listB = new CustomList<int>() { 0, 2, 4, 6, 14 };
+            CustomList<int> listC = new CustomList<int>();
 
-            Console.WriteLine("List A: {0}\nList B: {1}", listA.ToString(), listB.ToString());
+            Console.WriteLine("List A: {0}\nList B: {1}\n List C: {2}", listA.ToString(), listB.ToString(), listC.ToString());
             lC = new CustomList<int>();
-            Console.WriteLine("Zipped!");
-            string lCZipped = lC.Zipper(listA, listB);
-            Console.WriteLine(lCZipped);
+
+            Console.WriteLine("List A and B Zipped!");
+            lC = lC.ZipperMerge(listA, listB);
+            Console.WriteLine(lC.ToString());
+
+           
+
+            listA = new CustomList<int> {  1, 3, 5 }; 
+            listC = new CustomList<int> {  };
+            Console.WriteLine("List A and C Zipped!\nList A is now 1, 3, 5");
+            lC = lC.ZipperMerge(listA, listC);
+            Console.WriteLine(lC.ToString());
             #endregion
+
+
+
 
             Console.ReadLine();
         }

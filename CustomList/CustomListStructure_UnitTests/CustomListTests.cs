@@ -380,29 +380,31 @@ namespace CustomListStructure_UnitTests
             //Arrange
             CustomList<int> l1 = new CustomList<int>() { 1, 3, 5 };
             CustomList<int> l2 = new CustomList<int>() { 2, 4, 6 };
-            CustomList<int> l3 = new CustomList<int>();
+            CustomList<int> actual = new CustomList<int>();
+
+            //Act            
+            actual = actual.ZipperMerge(l1, l2);
+            string actualString =  actual.ToString();
             string expected = "1, 2, 3, 4, 5, 6";
 
-            //Act
-            string actual = l3.Zipper(l1, l2);
-
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.AreEqual(expected, actualString);
         }
         [TestMethod]
-        public void Zipper_EnsureCorrectOutputWithOneist()
+        public void Zipper_EnsureCorrectOutputWithOneList()
         {
             //Arrange
             CustomList<int> l1 = new CustomList<int>() { 1, 3, 5 };
-            CustomList<int> l2 = new CustomList<int>();
-            CustomList<int> l3 = new CustomList<int>();
-            string expected = "1, 3, 5";
+            CustomList<int> l2 = new CustomList<int>() { };
+            CustomList<int> actual = new CustomList<int>();
+            CustomList<int> expected = new CustomList<int>() { 1, 3, 5 };
 
             //Act
-            string actual = l3.Zipper(l1, l2);
-
+            actual = actual.ZipperMerge(l1, l2);
+            string actualString = actual.ToString();
+            string expectedString = "1, 3, 5"; 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.AreEqual(expectedString, actualString);
         }
         [TestMethod]
         public void Zipper_EnsureCorrectOutputWithBlankLists()
@@ -410,19 +412,103 @@ namespace CustomListStructure_UnitTests
             //Arrange
             CustomList<int> l1 = new CustomList<int>();
             CustomList<int> l2 = new CustomList<int>();
-            CustomList<int> l3 = new CustomList<int>();
-            string expected = "";
+            CustomList<int> actual = new CustomList<int>();
 
             //Act
-            string actual = l3.Zipper(l1, l2);
+            actual = actual.ZipperMerge(l1, l2);
+            string actualString = actual.ToString();
+            string expectedString = "";
 
             //Assert
-            Assert.AreEqual(expected, actual);
+            Assert.AreEqual(expectedString, actualString);
         }
         #endregion
 
         #region RemoveAt TestMethods
+        [TestMethod]
+        public void removeAt_SizeReflectsCorrectlyAfterMove()
+        {
+            //Arrange
+            CustomList<int> l1 = new CustomList<int>() { 0, 1, 1, 2 };
+            int expected = 3;
 
+            //Act
+            l1.RemoveAt(1);
+            int actual = l1.Count;
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+        [TestMethod]
+        public void removeAt_IndexesRetainOrderAfterRemovalFirstPosition()
+        {
+            //Arrange
+            CustomList<int> l1 = new CustomList<int>() { 1, 3, 5 };
+            string expected = "3, 5";
+
+            //Act
+            l1.RemoveAt(1);
+            string actual = l1.ToString();
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+        [TestMethod]
+        public void removeAt_IndexesRetainOrderAfterRemovalSecondPosition()
+        {
+            //Arrange
+            CustomList<int> l1 = new CustomList<int>() { 1, 3, 5 };
+            string expected = "1, 5";
+
+            //Act
+            l1.RemoveAt(3);
+            string actual = l1.ToString();
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+        [TestMethod]
+        public void removeAt_LastItemRemovedSuccessfully()
+        {
+            //Arrange
+            CustomList<int> l1 = new CustomList<int>() { 1, 3, 5, 7 };
+            string expected = "1, 3, 5";
+
+            //Act
+            l1.RemoveAt(7);
+            string actual = l1.ToString();
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+        [TestMethod]
+        public void removeAt_ItemToBeRemovedNotPresent()
+        {
+            //Arrange
+            CustomList<int> l1 = new CustomList<int>() { 1, 3, 5, 7 };
+            string expected = "1, 3, 5, 7";
+
+            //Act
+            l1.RemoveAt(9);
+            string actual = l1.ToString();
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+        [TestMethod]
+        public void removeAt_CountStaysSameIfNothingRemoved()
+        {
+            //Arrange
+            CustomList<int> l1 = new CustomList<int>() { 0, 1, 2, 3, 4 };
+            int expected = 5;
+
+            //Act
+            l1.RemoveAt(5);
+            int actual = l1.Count; 
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
         #endregion
 
     }
